@@ -77,7 +77,7 @@ H = b0 + b1 * reg_line_x
 plt.plot(reg_line_x, H, c='b', label='Regression Line')
 plt.scatter(X, Y, c='g', label='Known values')
 ```
-![image.png](attachment:image.png)
+![image.png](lin_reg.png)
 
 Для того чтобы подобрать параметры вектора нужно также ввести такие понятия как "кост-функция" и "градиетный спуск".
 
