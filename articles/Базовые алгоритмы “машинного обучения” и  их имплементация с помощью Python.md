@@ -33,7 +33,53 @@
 \beta_0 = \bar{y} - \beta_1\bar{x}
 \end{equation}
 
-Для того чтобы подобрать параметры для нашего вектора нужно также ввести такие понятия как "кост-функция" и "градиетный спуск".
+Где $\bar{x}$, $\bar{y}$ - математическое ожидание от векторов $X$ и $Y$
+
+Данные формулы являются частным случаем метода наименших квадратов, к которому мы еще вернемся, более подробно об о том как выводятся эти формулы можно узнать перейдя по ссылке https://www.wikiwand.com/en/Ordinary_least_squares
+
+
+Имплементация на Python:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt 
+
+def ord_LinReg_fit(X,Y):
+    x_mean = np.mean(X)
+    y_mean = np.mean(Y)
+
+    m = len(X)
+
+    number = 0
+    denom  = 0
+    for i in range(m):
+        number += (X[i] - x_mean)*(Y[i] - y_mean)
+        denom += (X[i] - x_mean)**2
+
+    b_1 = number/denom
+    b_0 = y_mean - (b_1*x_mean)
+    return b_0,b_1
+
+# Допустим мы хотим изучить зависимость веса мозгов Y от обьема черепной коробки X
+X = [3443, 3993, 3640, 4208, 3832, 3876, 3497, 3466, 3095, 4424] # см^3
+Y = [1340, 1380, 1355, 1522, 1208, 1405, 1358, 1292, 1340, 1400] # граммы
+
+
+max_x = np.max(X) + 100
+min_x = np.min(X) - 100
+
+
+reg_line_x = np.linspace(min_x, max_x, 10) # новые значения Х
+b0,b1 = ord_LinReg_fit(X,Y) # вычислeние параметров
+H = b0 + b1 * reg_line_x
+
+# Визуализация
+plt.plot(reg_line_x, H, c='b', label='Regression Line')
+plt.scatter(X, Y, c='g', label='Known values')
+```
+![image.png](attachment:image.png)
+
+Для того чтобы подобрать параметры вектора нужно также ввести такие понятия как "кост-функция" и "градиетный спуск".
 
 	
 
