@@ -81,8 +81,6 @@ plt.scatter(X, Y, c='g', label='Known values')
 
 $$
 H = \beta_0x_0 + \beta_1x_1 + \beta_2x_2 + … + \beta_nx_n
-\tag{3}
-\end{equation}
 $$
 
 $$
@@ -94,14 +92,13 @@ $$
 Уравнение приведенное выше можно записать в свернутой форме как:
 $$
 H = \theta^TX
-\tag{4}
 $$
 
 Где 
 $$
 \theta = [ \beta_0 + \beta_1 + \beta_2 + … + \beta_n ] 
-\end{equation}
-\begin{equation}
+$$
+$$
 X = [ x_0 + x_1 + x_2 + … + x_n]
 $$
 
@@ -265,7 +262,7 @@ def r_2(Y,H):
 
 Теперь можно попробовать применить рассмотренные алгоритмы на практике и сравнить их с уже готовой имплементацией sklearn. Сделаем это в несколько шагов:
 
-1. Загружаем датасет и расделяем данные на тренинг-сет и тест-сет, для sklearn нужно правильно задать размерности, метод reshape() помагает справиться с задачей.
+1. Загружаем датасет и разделяем данные на тренинг-сет и тест-сет, для sklearn нужно правильно задать размерности, метод ```reshape()``` помогает справиться с этой задачей.
 
 ```python 
 import pandas as pd
@@ -273,8 +270,8 @@ df = pd.read_csv('files/brainhead.csv')
 
 def split_data(df,reshape=False):
     from sklearn.model_selection import train_test_split  
-    x = df.values[:, 2]
-    y = df.values[:, 3]
+    x = df.values[:, 2] # предпоследняя колонка - объем черепной коробки
+    y = df.values[:, 3] # вес мозга
     train_set_x, test_set_x, train_set_y, test_set_y = train_test_split(x, y, test_size=0.33, random_state=42)
     if reshape:
         return (x.reshape(-1,1) for x in [train_set_x, test_set_x, train_set_y, test_set_y])
@@ -362,7 +359,7 @@ print(f'r^2_sklearn: {r_2_sklearn}, rmse_sklearn: {rmse_sklearn}')
 Результат:
 ``` r^2_sklearn: 0.6236128413780265, rmse_sklearn: 68.91317515113433 ```
 
-В итоге у кастомной модели немного меньше ошибка и соответсвенно выше коэффициент детерминации.
+В итоге у кастомной модели немного меньше ошибка и соответственно выше коэффициент детерминации.
 
 
 В этой статье были приведены базовые алгоритмы "машинного обучения" и их имплементация на Python, а уже в следующей, будет рассмотрен алгоритм логистической регрессии для решения задач классификации объектов.
@@ -372,4 +369,5 @@ https://mubaris.com/posts/linear-regression/
 https://www.wikiwand.com/en/Ordinary_least_squares  
 https://www.coursera.org/learn/machine-learning  
 
-Ссылочка на датасеты и многое другое: https://www.kaggle.com/datasets 
+Ссылка на датасеты и многое другое: https://www.kaggle.com/datasets   
+Ссылка на проект: https://github.com/vkhvorostianyi/ML_blog/tree/master/articles/linear_regression
